@@ -1,0 +1,57 @@
+_schema-version: "3.2"
+ID: GY_AnalyticalListTest
+version: 0.0.1
+modules:
+- name: GY_AnalyticalListTest-destination-content
+  type: com.sap.application.content
+  requires:
+  - name: GY_AnalyticalListTest-destination-service
+    parameters:
+      content-target: true
+  - name: GY_AnalyticalListTest_html_repo_host
+    parameters:
+      service-key:
+        name: GY_AnalyticalListTest_html_repo_host-key
+  - name: uaa_GY_AnalyticalListTest
+    parameters:
+      service-key:
+        name: uaa_GY_AnalyticalListTest-key
+  parameters:
+    content:
+      instance:
+        destinations:
+        - Name: BS_AnalyticalList_GY_GY_AnalyticalListTest_html_repo_host
+          ServiceInstanceName: GY_AnalyticalListTest-html5-app-host-service
+          ServiceKeyName: GY_AnalyticalListTest_html_repo_host-key
+          sap.cloud.service: BS_AnalyticalList_GY
+        - Authentication: OAuth2UserTokenExchange
+          Name: BS_AnalyticalList_GY_uaa_GY_AnalyticalListTest
+          ServiceInstanceName: GY_AnalyticalListTest-xsuaa-service
+          ServiceKeyName: uaa_GY_AnalyticalListTest-key
+          sap.cloud.service: BS_AnalyticalList_GY
+        existing_destinations_policy: ignore
+  build-parameters:
+    no-source: true
+resources:
+- name: GY_AnalyticalListTest-destination-service
+  type: org.cloudfoundry.managed-service
+  parameters:
+    config:
+      HTML5Runtime_enabled: true
+      version: 1.0.0
+    service: destination
+    service-name: GY_AnalyticalListTest-destination-service
+    service-plan: lite
+- name: GY_AnalyticalListTest_html_repo_host
+  type: org.cloudfoundry.managed-service
+  parameters:
+    service: html5-apps-repo
+    service-name: GY_AnalyticalListTest-html5-app-host-service
+    service-plan: app-host
+- name: uaa_GY_AnalyticalListTest
+  type: org.cloudfoundry.managed-service
+  parameters:
+    path: ./xs-security.json
+    service: xsuaa
+    service-name: GY_AnalyticalListTest-xsuaa-service
+    service-plan: application
