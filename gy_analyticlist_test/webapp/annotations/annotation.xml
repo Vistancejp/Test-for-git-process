@@ -134,6 +134,7 @@
                                 <Record Type="Common.ValueListParameterInOut">
                                     <PropertyValue Property="LocalDataProperty" PropertyPath="FlightYearMonth"/>
                                     <PropertyValue Property="ValueListProperty" String="FlightYearMonth"/>
+                                    <!-- Test update in github -->
                                 </Record>
                             </Collection>
                         </PropertyValue>
